@@ -1,5 +1,7 @@
-<h2>WordPress Page Templater by Harri Bell-Thomas</h2>
+<h2>Simple plugin to add page templates from plugin</h2>
 
-A useful bit of code from <a href="https://github.com/HarriBellThomas">Harri Bell-Thomas</a> you can use to dynamically create WordPress Page Templates with PHP.
+Steps to add custom templates...
 
-Read the full tutorial on <a href="http://www.wpexplorer.com/wordpress-page-templates-plugin" title="Adding Page Templates to WordPress with a Plugin">how to add Page Templates to WordPress with a plugin</a>
+1. Edit `Page_Template_in_plugin::$templates` near line 30.
+2. Add appropriate template files if you add new templates.
+3. All done! Template can now be selected in `Page attributes` > `Template`

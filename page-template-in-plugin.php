@@ -1,13 +1,12 @@
 <?php
-/*
-Plugin Name: Page template in plugin
-Description: Adds page template from Page_Template_in_plugin->templates array. Requires WP 4.7 or newer
-Plugin URI: http://www.shramee.me/
-Version: 1.0.0
-Author: Shramee
-Author URI: http://www.shramee.me/
-Requires WP 4.7 and newer
-*/
+/**
+ * Plugin Name: Page template in plugin
+ * Description: Adds page template from Page_Template_in_plugin->templates array. Requires WP 4.7 or newer
+ * Plugin URI: http://www.shramee.me/
+ * Version: 1.0.0
+ * Author: Shramee
+ * Author URI: http://www.shramee.me/
+ */
 
 class Page_Template_in_plugin {
 
@@ -27,26 +26,20 @@ class Page_Template_in_plugin {
 	}
 
 	/** @var array Templates */
-	protected $templates;
+	protected $templates = array(
+		'page-template.php' => 'Test page template',
+	);
 
 	/**
 	 * Initializes the plugin by setting filters and administration functions.
 	 */
 	private function __construct() {
 
-		// Add a filter to the attributes metabox to inject template into the cache.
+		// Add template to available templates
 		add_filter( 'theme_page_templates', array( $this, 'add_new_template' ) );
 
-
-		// Add a filter to the template include to determine if the page has our
-		// template assigned and return it's path
+		// Override template
 		add_filter( 'template_include', array( $this, 'view_project_template' ) );
-
-
-		// Add your templates to this array.
-		$this->templates = array(
-			'page-template.php' => 'Test page template',
-		);
 
 	}
 
@@ -67,25 +60,17 @@ class Page_Template_in_plugin {
 	 * Checks if the template is assigned to the page
 	 */
 	public function view_project_template( $template ) {
-		// Get global post
 		global $post;
 
-		// Return template if post is empty
 		if ( $post ) {
-
 			$file = get_post_meta( $post->ID, '_wp_page_template', true );
 
-			// Just to be safe, we check if the file exist first
 			if ( file_exists( $file ) ) {
 				$template = $file;
-			} else {
-				echo "Template file $file doesn't exist";
 			}
 		}
 
-		// Return template
 		return $template;
-
 	}
 
 }
